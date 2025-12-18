@@ -39,7 +39,7 @@ jobs:
         head -n 1 gradlew        
 
     - name: Test with gradle
-      run: ./gradlew --info test
+      run: sudo ./gradlew --info test
 
     - name: Spring boot  실행 파일 생성
       run: ./gradlew bootJar
