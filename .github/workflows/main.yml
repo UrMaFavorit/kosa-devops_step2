@@ -9,36 +9,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 소스 복사 
-    #- name: 소스 복사 
+    # 소스 복사
+    #- name: 소스 복사
     #  run: git clone https://github.com/UrMaFavorit/kosa-devops-step2
     - uses: actions/checkout@v3
 
-    - name: Setup JDK17 
+    - name: Setup JDK17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
-        
+
     - name: Check gradlew
       run: |
         pwd
-        find . -name gradlew -type f -exec ls -al {} \;        
-      
-    - name: gradlew 파일 실행 권한 설정 
+        find . -name gradlew -type f -exec ls -al {} \;
+
+    - name: gradlew 파일 실행 권한 설정
       run: |
         sudo apt-get update
         sudo apt-get install -y dos2unix
         dos2unix gradlew
-        chmod +x gradlew      
+        chmod +x gradlew  
         
+    - name: Fix gradlew BOM & permission
+      run: |
+        sed -i '1s/^\xEF\xBB\xBF//' gradlew
+        chmod +x gradlew
+        head -n 1 gradlew        
+
     - name: Test with gradle
-      run: ./gradlew --info test    
-     
-    - name: Spring boot  실행 파일 생성 
-      run: ./gradlew bootJar 
-        
-    - name: docker image 생성 
+      run: ./gradlew --info test
+
+    - name: Spring boot  실행 파일 생성
+      run: ./gradlew bootJar
+
+    - name: docker image 생성
       run: docker build -t UrMaFavorit/devops_step2:v1.0 .
 
     - name: docker login
@@ -46,10 +52,10 @@ jobs:
       with:
         username: UrMaFavorit
         password: ${{secrets.DOCKER_PASSWORD}}
-        
-    - name: docker image 허브에 저장 
+
+    - name: docker image 허브에 저장
       run: docker push UrMaFavorit/devops_step2:v1.0
-        
+
   deploy:
     needs: build
     name: Deploy
@@ -64,5 +70,4 @@ jobs:
     - name: docker image pull
       run: docker pull UrMaFavorit/devops_step2:v1.0
 
-      
-    
+
