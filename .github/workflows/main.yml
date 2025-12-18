@@ -20,26 +20,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Check gradlew
-      run: |
-        pwd
-        find . -name gradlew -type f -exec ls -al {} \;
-
     - name: gradlew 파일 실행 권한 설정
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y dos2unix
-        dos2unix gradlew
-        chmod +x gradlew  
-        
-    - name: Fix gradlew BOM & permission
-      run: |
-        sed -i '1s/^\xEF\xBB\xBF//' gradlew
-        chmod +x gradlew
-        head -n 1 gradlew        
+      run:  chmod +x gradlew       
 
     - name: Test with gradle
-      run: sudo ./gradlew --info test
+      run: sh gradlew --info test
 
     - name: Spring boot  실행 파일 생성
       run: ./gradlew bootJar
