@@ -63,4 +63,4 @@ jobs:
       run: cd /home/kosa/kosa-devops_step2
 
     - name: docker compose 실행
-      run: docker compose -f docker_compose_nginx.yml up
+      run: docker compose -d -f docker_compose_nginx.yml up
