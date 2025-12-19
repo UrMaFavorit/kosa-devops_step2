@@ -67,6 +67,6 @@ jobs:
     - name: docker image pull
       run: docker pull  ${{env.DOCKER_USERNAME}}/devops_step2:latest
     
-
     - name: docker compose 실행
       run: docker compose -f docker_compose_nginx.yml up -d
+      
