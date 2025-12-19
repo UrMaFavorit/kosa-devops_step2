@@ -53,11 +53,11 @@ jobs:
         name: my-actifact
         path: docker-compose_nginx.yml
 
-#  deploy:
-#    needs: build
-#    name: Deploy
-#    runs-on: self-hosted
-#    steps:
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: self-hosted
+    steps:
 #    - uses: actions/checkout@v3
 #      with:
 #        sparse-checkout: |
