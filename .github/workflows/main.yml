@@ -69,4 +69,4 @@ jobs:
     
 
     - name: docker compose 실행
-      run: docker compose -d -f docker_compose_nginx.yml up
+      run: docker compose -f docker_compose_nginx.yml up -d
