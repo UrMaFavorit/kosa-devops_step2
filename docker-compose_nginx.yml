@@ -1,6 +1,7 @@
 #version: '3.1'
 #네트웍 브릿지 추가 함
-#수정: artifact
+#수정v0.1:artifact
+#수정v0.2
 
 services:
   nginx:
